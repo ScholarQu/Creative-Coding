@@ -1,0 +1,148 @@
+/*
+self portrait by danni qu
+
+shapes referenced from p5.js website
+*/
+
+function setup() {
+  createCanvas(600, 400);
+  background("#cffffc");
+  
+  fill("#a3ed8c");
+  strokeWeight(0);
+    rect(0,50,600,30);
+    rect(0,130,600,55);
+    rect(0,230,600,100);
+    //rectangles in background
+  fill("#cffffc");
+    triangle(585,150,535,50,485,150);
+    triangle(585,250,535,150,485,250);
+    triangle(585,350,535,250,485,350);
+    //triangles in background
+  
+  stroke("#ff8cc6");
+  strokeWeight(1);
+  fill("#ffffa1");
+    circle(535,335,30,30);
+    circle(515,350,30,30);
+    circle(555,350,30,30);
+    circle(547,370,30,30);
+    circle(523,370,30,30);
+  fill("#ff8cc6");
+    circle(535,353,30,30);
+    //flower
+  
+  let word0 = ['dq'];
+  fill(255);
+  strokeWeight(3);
+  stroke("#ff8cc6");
+  textFont("times new roman");
+  textSize(20);
+  text(word0,524,357);
+    //name on flower
+  
+  noStroke();
+  fill("#784347");
+  arc(380,400,100,500,PI+QUARTER_PI,TWO_PI);
+    //hair1
+  
+  stroke("#dbd3ce");
+  fill("#fff6f0");
+  ellipse(220,200,500,550);
+    //face
+  
+  noStroke();
+  fill("#f0e8e4");
+  arc(210,480,400,700,0,PI+QUARTER_PI,TWO_PI);
+    //face shadow
+  
+  noStroke();
+  fill("#784347");
+  arc(0,0,400,380,0,PI);
+  arc(350,80,200,280,PI+QUARTER_PI,TWO_PI,CHORD);
+  arc(0,400,100,500,PI+QUARTER_PI,TWO_PI);
+    //hair2
+  
+  fill("#ffffc2");
+  stroke("#ff8cc6");
+  strokeWeight(1.5);
+  rect(440,30,140,100,80,80,80,10);
+    //text bubble
+  
+  noStroke();
+  fill("#ffb5cb");
+  triangle(203,190,130,120,80,170);
+    //left eyeshadow
+  triangle(450,170,400,120,320,190);
+    //right eyeshadow
+  
+  ellipse(133,240,90,25);
+    //left blush
+  ellipse(403,240,90,25);
+    //right blush
+  
+  fill("#633538");
+  triangle(180,190,150,150,80,170);
+    //left eyeliner
+  triangle(450,170,380,150,370,185);
+    //right eyeliner
+  
+  fill(255);
+  stroke("#633538");
+  strokeWeight(2);
+  rect(140,130,75,60,20,120,10,20);
+    //left eye
+  rect(310,130,75,60,40,20,20,10);
+    //right eye
+  
+  fill("#633538");
+  circle(190,155,50,50);
+  //arc(174,130.5,40,100,0,PI,CHORD);
+     //left eye pupil
+  circle(360,155,50,50);
+  //arc(351,130.5,40,100,0,PI,CHORD);
+    //right eye pupil
+  
+  fill(255);
+  stroke(255);
+  circle(203,145,15,15);
+    //left eye highlight
+  circle(373,143,15,15);
+    //right eye highlight
+  
+  stroke(0);
+  strokeWeight(3);
+  //arc(260,240,50,50,HALF_PI,0,CHORD);
+  noFill();
+  arc(260,220,20,20,50,QUARTER_PI,0);
+    //nose
+  
+  stroke("#633538");
+  noFill();
+  arc(180,90,80,20,PI,0);
+    //left eyebrow
+  arc(355,85,80,20,PI,0);
+    //right eyebrow
+    
+  fill("#ffe0ea");
+  strokeWeight(2);
+  arc(260,280,49,40,0,PI,CHORD);
+    //mouth
+  
+  let color0 = color(random(255),random(255),random(255));
+  let words =['yay','tired',"i'm hungry",'chilling','no',
+    'stop','nice','cool','what','ummmm','yes','bruh','ok'];
+  let word = random(words);
+  fill(255);
+  strokeWeight(3);
+  stroke("#ff8cc6");
+  textFont("times new roman");
+  textSize(20);
+  text(word,460,90);
+    //text bubble words
+  
+}
+
+function draw() {
+  
+}
