@@ -1,0 +1,146 @@
+/*
+perpetual clock by Danni Qu
+
+references from p5.js website
+https://editor.p5js.org/TimSherbert/sketches/ryC0T0caX
+*/
+
+
+// let arcade;
+// function preload() {
+//   arcade = loadFont("Library/ARCADE.TTF");
+// }
+
+var x;
+var changeDirection;
+
+var diam = 300;
+var diam2 = 200;
+var diam3 = 100;
+var inOut = true;
+
+function setup() {
+  createCanvas(800,400);
+  
+  // x=610;
+  // changeDirection = false;
+}
+
+function draw() {
+  background(0);
+  let hr = hour();
+  let min = minute();
+  let sec = second();
+  
+  noFill();
+  stroke(255);
+  strokeWeight(3);
+  frameRate(1);
+  let stop3 = map(sec,0,60,0,360);
+  ellipse(670,200,diam3,stop3);
+	
+	if(diam3 > 159){
+	inOut = false;
+	}
+	if(diam3 <99){
+	inOut = true;
+	}
+	if(inOut){
+	diam3++
+	}
+	if(!inOut){
+	diam3--
+	}
+
+  let stop = map(hr,0,24,0,360);
+  ellipse(190,80,diam,stop);
+
+	// if(diam > 259){
+	//   inOut = false;
+	//   }
+	// if(diam <199){
+	//   inOut = true;
+	//   }
+	// if(inOut){
+	//   diam++
+	//   }
+	// if(!inOut){
+	//   diam--
+	//   }
+  
+  let stop2 = map(min,0,60,0,20);
+  ellipse(460,140,diam2,stop2);
+  
+	// if(diam2 > 359){
+	// inOut = false;
+	// }
+	// if(diam2 <299){
+	// inOut = true;
+	// }
+	// if(inOut){
+	// diam2++
+	// }
+	// if(!inOut){
+	// diam2--
+	// }
+  
+	// if(diam2 > 659){
+	// inOut = false;
+	// }
+	// if(diam2 <609){
+	// inOut = true;
+	// }
+	// if(inOut){
+	// diam2++
+	// }
+	// if(!inOut){
+	// diam2--
+	// }
+
+  
+  stroke("#ff6989");
+  strokeWeight(7);
+  textSize(220);
+  //fill("#abffdb");
+  fill(0);
+  text(hr+":", 50 ,330);
+  
+  //stroke("#ffd9ea");
+  stroke("#ffa6b9");
+  textSize(160);
+  text(min+":",365 ,330);
+  
+  //noStroke();
+  stroke(255);
+  //fill(255);
+  textSize(120);
+  text(sec,605 ,330);
+  
+  fill(255);
+  noStroke();
+  //rect(80,370,70,20);
+  
+  // rect(350,370,70,20);
+  // if(rect<width){
+  //   rect=1
+  // if(rect>width){
+  //   rect=-1
+  // }
+  
+//  frameRate(150);
+//   noFill();
+//   stroke(255);
+//   strokeWeight(1);
+//   let stop2 = map(sec,0,60,0,10);
+//   circle(x,360,30,30,10,stop2);
+
+//   if(x>720){
+// 		changeDirection=true}
+// 	else if (x<620){
+// 		changeDirection=false}
+
+// 	if (x>=0 && changeDirection == false){
+// 		x=x+1.7}
+// 	else if(changeDirection == true){
+// 		x=x-1.7}
+}
