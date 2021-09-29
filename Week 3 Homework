@@ -7,6 +7,9 @@ https://editor.p5js.org/hyershin/sketches/SkG_S5K3W
 https://p5js.org/examples/objects-objects.html
 */
 
+var fade;
+var fadeAmount = 1;
+
 var angle=10.0;
 var offset=500;
 var scalar=7.5;
@@ -33,11 +36,12 @@ let state=false;
 
 function setup() {
   createCanvas(600, 600);
+  
+  fade = 0;
  
   //square1 = new Jitter();
   
   background(0);
-  noStroke();
   
   for(let angle=20; angle<60; angle+=200){
     let v=p5.Vector.fromAngle(radians(angle-359));
@@ -63,6 +67,14 @@ function setup() {
 } 
 
 function draw() {
+  //background(0);
+  noStroke();
+  fill(255, 250, 102, fade)
+  ellipse(300,300,30,30);
+  if (fade<1) fadeAmount=1; 
+  if (fade>255) fadeAmount=-4; 
+  fade += fadeAmount;
+  
   let c=offset + sin(angle)*scalar;
   //let timer=30;
   //let canvas;
