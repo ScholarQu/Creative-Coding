@@ -1,3 +1,12 @@
+/*
+galaxy by danni qu
+
+references from p5.js website
+  https://p5js.org/examples/motion-morph.html
+https://editor.p5js.org/hyershin/sketches/SkG_S5K3W
+https://p5js.org/examples/objects-objects.html
+*/
+
 var angle=10.0;
 var offset=500;
 var scalar=7.5;
