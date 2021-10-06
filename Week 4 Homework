@@ -1,0 +1,110 @@
+/*
+whimsical by danni qu
+
+references from p5.js website
+https://p5js.org/reference/#/p5/brightness
+https://editor.p5js.org/codingtrain/sketches/7SjPmXN2
+
+*/
+
+let circles = [];
+
+function setup() {
+  createCanvas(700, 700);
+  
+  for (let i = 0; i < 1; i++) {
+   circles.push(new Circle());
+  }
+  
+}
+
+function draw() {
+  background("#c2ffde");
+  
+  circles.forEach(element =>  {
+    element.move();
+    element.check();
+    element.render();
+  });
+
+  for (let c of circles) {
+    c.render();
+    c.move();
+    let overlapping = false;
+    for (let other of circles) {
+      if (c !== other && c.intersects(other)) {
+        overlapping = true;
+      }
+    }
+    if (overlapping) {
+      c.changeColor(255);
+    } else {
+      c.changeColor(0);
+    }
+  }
+  
+  textFont("Helvetica");
+  textSize(20);
+  text('(pssst, click for added fun :D)',30,670);
+  fill(0);
+  
+}
+
+class Circle {
+  constructor() {
+    let r = random(10,50);
+    this.r = r;
+    this.diam = random(20,100);
+    this.brightness = 100;
+    this.xPos = random(this.diam,width-this.diam);
+    this.yPos = random(this.diam,height-this.diam);
+    this.xSpeed = random(-1, 4);
+    this.ySpeed = random(-1, 9);
+  }
+  
+  move(){
+    this.xPos += this.xSpeed;
+    this.yPos += this.ySpeed;
+  }
+  
+  intersects(other) {
+    let d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+    return d < this.r + other.r;
+  }
+
+  changeColor(bright) {
+    this.brightness = bright;
+  }
+
+  contains(px, py) {
+    let d = dist(px, py, this.xPos, this.yPos);
+    if (d < this.r) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+   check(){
+    if(this.xPos > width-this.diam/2 || this.xPos < this.diam/2){
+      this.xSpeed = -this.xSpeed;
+    }
+    if(this.yPos >= width-this.diam/2 || this.yPos <= this.diam/2){
+      this.ySpeed = -this.ySpeed;
+    }
+  }
+
+  render() {
+    stroke("#c2ffde");
+    strokeWeight(1);
+    fill(this.brightness, 20);
+    ellipse(this.xPos, this.yPos, this.r * 2);
+  }
+  
+}
+
+function mousePressed(){
+  let r = random(540,550);
+  let b = new Circle(mouseX, mouseY, r);
+  circles.push(b);
+}
