@@ -1,0 +1,193 @@
+/*
+jokes on you by danni qu
+
+references:
+https://pokeapi.co/
+https://creative-coding.decontextualize.com/text-and-type/
+https://editor.p5js.org/allison.parrish/sketches/BsI0Ckdwo
+https://p5js.org/reference/#/p5/textWrap
+https://www.youtube.com/watch?v=lm8Y8TD4CTM
+https://github.com/public-apis/public-apis
+https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/
+https://betterprogramming.pub/a-curated-list-of-100-cool-and-fun-public-apis-to-inspire-your-next-project-7600ce3e9b3
+https://v2.jokeapi.dev/joke/Any
+*/
+
+let joke;
+let delivery;
+let msg;
+
+// const joke = 'msg.setup';
+// const delivery = 'msg.delivery';
+
+let cwidth = 100;
+let cheight = 150;
+
+function preload(){
+  msg = loadJSON("https://v2.jokeapi.dev/joke/Any?safe-mode");
+}
+
+let cards = [];
+
+function setup() {
+  //background("#66a1ff");
+  createCanvas(600, 600);
+  noFill();
+  // stroke(10);
+  strokeWeight(5);
+  rect(170,205,365,107,20);
+  fill("#66a1ff");
+  textSize(28);
+  textFont("Helvetica");
+  text("hey kid, wanna hear a joke?",180,250);
+  text("click. click. drag.",250,290);
+  console.log(msg);
+}
+
+function draw() {
+  //background("#66a1ff");
+  textSize(16);
+  //textWrap(WORD);
+  //textAlign(CENTER);
+  text(msg.setup, 600,50);
+  text(msg.delivery, 600,150);
+  
+  
+  for (let cardInner of cards) {
+    for (let cardOuter of cards) {
+      if ((cardInner.selected && cardOuter.selected) && 
+          cardInner != cardOuter) {
+        strokeWeight(5);
+        stroke(40, 40, 240,
+               map(sin(frameCount*0.1), -1, 1, 32, 64));
+        line(cardInner.x + cwidth*0.5,
+             cardInner.y + cheight*0.5,
+             cardOuter.x + cwidth*0.5,
+             cardOuter.y + cheight*0.5);
+      }
+    }
+  }
+  for (let i = cards.length - 1; i >= 0; i--) {
+    card = cards[i];
+    card.render();
+  }
+}
+
+class Card {
+  constructor(cname, text, x, y) {
+    this.cname = cname;
+    this.text = text;
+    this.x = x;
+    this.y = y;
+    this.selected = false;
+    this.dragging = false;
+    this.pdragging = false;
+    this.flipped = false;
+  }
+  render() {
+    if (this.flipped) {
+      fill(255);
+      if (this.selected) {
+        strokeWeight(5);
+        stroke(40, 40, 240,
+          map(sin(frameCount*0.1), -1, 1, 64, 128));
+      }
+      else {
+        strokeWeight(2);
+        stroke(128);
+      }
+      rect(this.x, this.y, cwidth, cheight, 10, 10);
+      fill(0);
+      noStroke();
+      textAlign(CENTER);
+      textSize(8);
+      text(this.cname,
+           this.x + cwidth*0.5,
+           this.y + cwidth*0.33);
+      textSize(8);
+      textAlign(LEFT, TOP);
+      text(this.text,
+           this.x + 12, this.y + cheight * 0.5,
+           cwidth - 48, cheight * 0.5);
+    }
+    else {
+      fill(0);
+      stroke(255);
+      strokeWeight(2);
+      rect(this.x, this.y, cwidth, cheight, 10, 10);
+    }
+    this.pdragging = this.dragging;
+  }
+  drag() {
+    if (this.mouseIn() || this.dragging) {
+      this.x += mouseX - pmouseX;
+      this.y += mouseY - pmouseY;
+      this.dragging = true;
+      return true;
+    }
+  }
+  mouseIn() {
+    return (mouseX > this.x &&
+        mouseY > this.y &&
+        mouseX < this.x + cwidth &&
+        mouseY < this.y + cheight);
+  }
+  mouseClicked() {
+    if (this.mouseIn() && !this.pdragging) {
+      if (this.flipped && keyIsDown(SHIFT)) {
+        this.selected = !this.selected;
+      }
+      this.flipped = true;
+      return true;
+    }
+    else if (this.mouseIn()) {
+      return true;
+    }
+    return false;
+  }
+}
+
+
+function mouseClicked() {
+  let anyFound = false;
+  for (let card of cards) {
+    if (card.mouseClicked()) {
+      anyFound = true;
+      break;
+    }
+  }
+  
+  let anySelected = false;
+  for (let card of cards) {
+    if (card.selected) {
+      anySelected = true;
+    }
+  }
+  if (!anyFound && anySelected) {
+    for (let card of cards) {
+      card.selected = false;
+    }
+  }
+  if (!anyFound && !anySelected) {
+    cards.push(new Card((msg.setup), (msg.delivery), mouseX - cwidth*0.5, mouseY - cheight*0.5));
+  }
+}
+
+function mouseReleased() {
+  for (let card of cards) {
+    card.dragging = false;
+  }
+}
+
+function mouseDragged() {
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i].mouseIn() || cards[i].dragging) {
+      let selected = cards[i];
+      cards.splice(i, 1);
+      cards.splice(0, 0, selected);
+      selected.drag();
+      break;
+    }
+  }
+}
+
