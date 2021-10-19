@@ -1,0 +1,64 @@
+/*
+say something by danni qu
+
+references:
+https://idmnyu.github.io/p5.js-speech/
+
+*/
+
+var myRec;
+let value = 0;
+
+function setup() {
+  // graphics stuff:
+  createCanvas(800, 800);
+  background("LightBlue");
+
+  //instructions:
+  textSize(20);
+  stroke(0);
+  fill("Yellow");
+  textAlign(CENTER);
+  textWrap(CHAR);
+  text("say something", width / 2, height / 2);
+
+  myRec = new p5.SpeechRec();
+  myRec.onResult = showResult;
+  myRec.continuous = true;
+  myRec.start();
+}
+
+/* I would have liked to get this to work
+function speed() {
+  text.speed(0.1);
+  textSize(32);
+  fill(255);
+  textAlign(CENTER);
+  text("say something", width/2, height/2);
+}
+*/
+
+function showResult() {
+  if (myRec.resultValue == true) {
+    background(0, 0, 0);
+    //text(myRec.resultString, width / 2, height / 2);
+    console.log(myRec.resultString);
+  }
+}
+
+function draw() {
+  frameRate(25);
+  push();
+    translate(400,400);
+    rotate( radians(frameCount) );
+    text(myRec.resultString, mouseX, mouseY);
+	pop();
+}
+
+function mouseClicked() {
+  if (value === 0) {
+    value = "LightBlue";
+  } else {
+    value = 0;
+  }
+}
