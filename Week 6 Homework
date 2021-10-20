@@ -4,7 +4,7 @@ say something by danni qu
 references:
 https://idmnyu.github.io/p5.js-speech/
 
-The p5.speech library is also uploaded to the main Github 
+The p5.speech library is also uploaded to the main GitHub 
 */
 
 var myRec;
