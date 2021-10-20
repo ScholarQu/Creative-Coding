@@ -3,7 +3,6 @@ say something by danni qu
 
 references:
 https://idmnyu.github.io/p5.js-speech/
-
 */
 
 var myRec;
@@ -16,6 +15,7 @@ function setup() {
 
   //instructions:
   textSize(20);
+  textFont("Times New Roman");
   stroke(0);
   fill("Yellow");
   textAlign(CENTER);
@@ -40,7 +40,7 @@ function speed() {
 
 function showResult() {
   if (myRec.resultValue == true) {
-    background(0, 0, 0);
+    background("#ffb8cc");
     //text(myRec.resultString, width / 2, height / 2);
     console.log(myRec.resultString);
   }
