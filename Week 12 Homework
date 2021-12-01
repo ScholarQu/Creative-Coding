@@ -1,0 +1,33 @@
+/*
+let's connect by danni qu
+
+references:
+https://p5js.org/reference/#/p5/sphere
+https://p5js.org/reference/#/p5/camera
+*/
+
+let h = 0, v = 0
+
+
+function setup() {
+	createCanvas(600, 600, WEBGL);
+}
+
+function draw() {
+	camera(0, 0, 0, 0, 0, 1, 0, 1, 0);
+	scale(-1, 1, 1)
+	rotateX(radians(v));
+	rotateY(radians(h));
+
+	sphere(1000);
+	
+	if (keyIsDown(39)) h--;
+	if (keyIsDown(37)) h++;
+	if (keyIsDown(38) && v > -90) v--;
+	if (keyIsDown(40) && v < 90) v++;
+	
+	if (mouseIsPressed) {
+		h -= (mouseX - width / 2) / width;
+		v = min(90, max(-90, v + (mouseY - height / 2) / height));
+	}
+}
