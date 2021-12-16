@@ -1,0 +1,185 @@
+/*
+say something v2.0 by danni qu
+
+references:
+Scott's videos: https://www.youtube.com/watch?v=jsXLMm-FnSY&list=PLnkvii1uWBvEprzkCJZbSAWsiqncWodoQ&index=3
+
+https://idmnyu.github.io/p5.js-speech/
+The p5.speech library is also uploaded to the main GitHub
+
+https://content.arduino.cc/assets/Pinout-NANOble_latest.png
+
+*/
+
+let serial;
+let latestData = "waiting for data";
+
+var myRec;
+//let value = 0;
+
+function setup() {
+ createCanvas(windowWidth, windowHeight);
+
+////////serial code
+ serial = new p5.SerialPort();
+
+ //serial.list();
+ serial.open('/dev/tty.usbmodem14301');
+
+ //serial.on('connected', serverConnected);
+
+ //serial.on('list', gotList);
+
+ serial.on('data', gotData);
+
+ //serial.on('error', gotError);
+
+ //serial.on('open', gotOpen);
+
+ //serial.on('close', gotClose);
+////////serial code
+  
+  
+// ////////graphics stuff:
+  createCanvas(600, 600);
+  background("LightBlue");
+
+// ////////speech instructions:
+  textSize(20);
+  textFont("Times New Roman");
+  stroke(0);
+  fill("Yellow");
+  textAlign(CENTER);
+  textWrap(CHAR);
+  text("say something", width / 2, height / 2);
+
+  myRec = new p5.SpeechRec();
+  myRec.onResult = showResult;
+  myRec.continuous = true;
+  myRec.start();
+}
+
+// function serverConnected() {
+//  print("Connected to Server");
+// }
+
+// function gotList(thelist) {
+//  print("List of Serial Ports:");
+
+//  for (let i = 0; i < thelist.length; i++) {
+//   print(i + " " + thelist[i]);
+//  }
+// }
+
+// function gotOpen() {
+//  print("Serial Port is Open");
+// }
+
+function gotClose(){
+ print("Serial Port is Closed");
+ latestData = "Serial Port is Closed";
+}
+
+// function gotError(theerror) {
+//  console.log(theerror);
+// }
+
+function gotData() {
+ let currentString = serial.readLine();
+ trim(currentString);
+ if (!currentString) return;
+ console.log(currentString);
+ latestData = currentString;
+  
+ //latestData = map(currentString, 0, 1023, 0, 255);
+ //latestData = map(myRec.resultString, 0, 1023, 0, 255);
+}
+
+ // Polling method
+ /*
+ if (serial.available() > 0) {
+  let data = serial.read();
+  ellipse(50,50,data,data);
+ }
+ */
+
+function showResult() {
+  if (myRec.resultValue == true) {
+    background("#fff5b3");
+    //text(myRec.resultString, width / 2, height / 2);
+    console.log(myRec.resultString);
+  }
+}
+
+var r;
+var g;
+var b;
+var a;
+
+function draw() {
+  //background(255,255,255);
+  r = random(255); // r is a random number between 0 - 255
+  g = random(255); // g is a random number betwen 100 - 200
+  b = random(255); // b is a random number between 0 - 100
+  a = random(255); // a is a random number between 200 - 255
+ 
+  frameRate(50);
+  rotate( radians(frameCount) );
+  noStroke();
+  fill(r, g, b, a);
+  //fill();
+  angleMode(RADIANS);
+  let rotDeg = map(latestData, 0,1023,0,180);
+  //rotate(rotDeg);
+  
+  text(myRec.resultString,latestData,10,10);
+  
+/*for switching between ellipse and square
+  if(latestData ==0){
+    ellipse(width/2, height/2, 100,100);
+  } else{
+    rectMode(CENTER);
+    rect(width/2, height/2, 100,100);
+  }
+*/
+/*for rotating the rectangle
+  angleMode(DEGREES);
+  let rotDeg = map(latestData, 0,1023,0,360);
+  translate(width/2, height/2);
+  rotate(rotDeg);
+  rectMode(CENTER);
+  rect(0,0,100,100);
+*/ 
+  
+ 
+ fill("Light Blue");
+  
+ push();
+  
+    //translate(400,400);
+  if(latestData>0){
+  rotate( radians(20) );
+    //translate(400,400);
+  }else if(latestData> 300){
+    rotate(radians(60));
+  }
+ //text(myRec.resultString, mouseX, mouseY);
+ //text(myRec.resultString, 0,1023,0,255);
+
+  pop();
+  
+////////serial code
+  
+ //text(latestData, 10, 10);
+
+////////serial code
+  
+}
+
+function mouseClicked() {
+  if (background === 0) {
+    //value = "LightBlue";
+  } else {
+    value = 0;
+}
+}
