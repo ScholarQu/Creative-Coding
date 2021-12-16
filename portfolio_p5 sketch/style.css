@@ -1,0 +1,41 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background:none;
+  color:none;
+  
+}
+
+h1{
+  text-align:center;
+  background-color:transparent;
+  margin-top: 20%;
+  margin-left:20px;
+  z-index:2;
+}
+
+h3{
+  margin-left:50px;
+  background:none;
+  
+}
+
+canvas {
+  display: block;
+}
+
+/* .dot{
+  height:25px;
+  width:25px;
+  background-color:blue;
+  cursor: pointer;
+} */
+
+/* .cursor1 tr{
+  cursor:url(images/bluedot.png);
+  z-index:3;
+} */
+
+a:hover{
+  cursor: url(images/reddot.png),auto;
+}
