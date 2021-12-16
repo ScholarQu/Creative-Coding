@@ -8,7 +8,6 @@ https://idmnyu.github.io/p5.js-speech/
 The p5.speech library is also uploaded to the main GitHub
 
 https://content.arduino.cc/assets/Pinout-NANOble_latest.png
-
 */
 
 let serial;
